@@ -49,17 +49,12 @@ Template.create.events({
   },
   'click .instancemodsplus': function (event, template) {
     const spacers = document.getElementsByClassName('emptyinputspacer');
-    if (spacers.length < 4) {
-      $('.instancemodsinput').removeClass('lastmodinput');
-      $('.plusbuttoncontainer').removeClass('lastmodinput');
-      $('.instancemodsplus').remove();
-      $('<input class="instancemodsinput lastmodinput" type="email" placeholder="Moderator email..."><div class="emptyinputspacer lastinputspacer"><div class="plusbuttoncontainer"><div class="instancemodsplus">+</div></div></div>').insertAfter('.lastinputspacer').last();
-      $('.lastinputspacer').first().removeClass('lastinputspacer');
-      $('#instancebottominputcontainer').height((index, height) => (height + 50));
-    } else {
-      showCreateError("You've reached the maximum # of moderators (4).");
-      return false;
-    }
+    $('.instancemodsinput').removeClass('lastmodinput');
+    $('.plusbuttoncontainer').removeClass('lastmodinput');
+    $('.instancemodsplus').remove();
+    $('<input class="instancemodsinput lastmodinput" type="email" placeholder="Moderator email..."><div class="emptyinputspacer lastinputspacer"><div class="plusbuttoncontainer"><div class="instancemodsplus">+</div></div></div>').insertAfter('.lastinputspacer').last();
+    $('.lastinputspacer').first().removeClass('lastinputspacer');
+    $('#instancebottominputcontainer').height((index, height) => (height + 50));
   },
   'click #buttonarea': function (event, template) {
     if (!Meteor.user()) {

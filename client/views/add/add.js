@@ -55,10 +55,6 @@ Template.add.events({
       showModsError('Email ID was already added as a moderator.');
       return false;
     }
-    if (modBoxes.length >= 4) {
-      showModsError("You've reached max of 4 moderators.");
-      return false;
-    }
     const buttons = row.getElementsByClassName('plusbutton');
     for (let i = 0; i < buttons.length; i++) {
       buttons[i].style.display = 'none';
@@ -73,12 +69,7 @@ Template.add.events({
   'click #modsdonebutton': function (event, template) {
     const modBoxes = document.getElementsByClassName('modbox');
     const modBoxesArray = Array.from(modBoxes);
-    const modEmails = modBoxesArray.map(b => b.value);  
-    const occurrences = modEmails.filter(val => val !== "").length;
-    if (occurrences > 4) {
-      showModsError('You can only assign 4 moderators per instance.');
-      return false;
-    }
+    const modEmails = modBoxesArray.map(b => b.value);
     if (checkPrevMod(modBoxes) === false) {
       showModsError('Email ID was already added as a moderator.');
       return false;
@@ -93,13 +84,6 @@ Template.add.events({
     Meteor.call('addMods', mods, template.data._id, (error, result) => {
       // If the result is an object, there was an error
       if (typeof result === 'object') {
-        // Alert the error
-        for (let i = 0; i < result.length; i++) {
-          if (result[i].name === 'moderators') {
-            showModsError('You can only assign 4 moderators per instance.');
-            return false;
-          }
-        }
         showModsError('Please enter valid email addresses.');
         return false;
       }
